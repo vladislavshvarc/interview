@@ -1,0 +1,29 @@
+version: "2"
+services:
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ${PWD}/../:/var/www/interview
+      - ${PWD}/webconfig.conf:/etc/nginx/conf.d/interview.conf
+    links:
+      - php
+
+  php:
+    image: yiisoftware/yii2-php:7.2-fpm
+    volumes:
+      - ${PWD}/../:/var/www/interview
+      - ${PWD}/php.ini:/usr/local/etc/php/php.ini
+    links:
+      - mysql
+
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - ${PWD}/init.sql:/docker-entrypoint-initdb.d/interview.sql
+    ports:
+      - "3306:3306"
