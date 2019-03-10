@@ -130,7 +130,15 @@ class VoyagesController extends BaseApiController
      */
     public function actionUpdate($id)
     {
-		$model 			= VoyageForm::prepareModel($id);
+		try {
+			$voyage = $this->findModel($id);
+
+			$model 	= VoyageForm::prepareModel($voyage);
+
+		} catch ( \Exception $e ) {
+
+			return $this->actionError($e);
+		}
 
 		try {
 			$data 	= $this->getAllowedBody();

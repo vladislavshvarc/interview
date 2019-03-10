@@ -78,13 +78,9 @@ class VoyageForm extends Model
 		];
 	}
 
-	public static function prepareModel( $id )
+	public static function prepareModel( TrainVoyage $voyage )
 	{
 		$model	= new self();
-
-		$voyage = TrainVoyage::findOne($id);
-
-		if( !$voyage ) return false;
 
 		$model->id = $voyage->id;
 

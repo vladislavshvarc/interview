@@ -113,7 +113,9 @@ class VoyagesController extends BaseController
 	 */
     public function actionUpdate($id)
     {
-        $model 			= VoyageForm::prepareModel($id);
+		$voyage = $this->findModel($id);
+
+		$model 	= VoyageForm::prepareModel($voyage);
 
 		$post 			= $this->getAllowedPost();
 
